@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Firebase by BOY</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase.js"></script>
+    <!-- update the version number as needed -->
+    <script defer src="/__/firebase/6.1.1/firebase-app.js"></script>
+    <!-- include only the Firebase features as you need -->
+    <script defer src="/__/firebase/6.1.1/firebase-auth.js"></script>
+    <script defer src="/__/firebase/6.1.1/firebase-database.js"></script>
+    <script defer src="/__/firebase/6.1.1/firebase-messaging.js"></script>
+    <script defer src="/__/firebase/6.1.1/firebase-storage.js"></script>
+    <!-- initialize the SDK after all desired features are loaded -->
+    <script defer src="/__/firebase/init.js"></script>
+
+    <style media="screen">
+      body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
+      #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px; }
+      #message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
+      #message h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
+      #message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
+      #message a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
+      #message, #message a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
+      #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
+      @media (max-width: 600px) {
+        body, #message { margin-top: 0; background: white; box-shadow: none; }
+        body { border-top: 16px solid #ffa100; }
+      }
+    </style>
+    <script>
+      // Initialize Firebase
+      // Cambiar por sus credenciales
+      var config = {
+        apiKey: "AIzaSyDVAMzBCavz4SZED2xU8lx-qpGgoyacIcM",
+        authDomain: "rasberry-boy.firebaseapp.com",
+        databaseURL: "https://rasberry-boy.firebaseio.com",
+        storageBucket: "rasberry-boy.appspot.com",
+        messagingSenderId: "664102215589"
+      };
+      firebase.initializeApp(config);
+    </script>
+  </head>
+  <body>
+
+
+
+
+      <h2><center>TEST LEDewe</center></h2>
+      <br>
+      <br>
+      <br>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+              <div class="panel panel-success">
+                <div class="panel-heading">Firebase to Raspberry</div>
+                <div class="panel-body">
+                   <div class="checkbox">
+                     <label>
+                      <input type="checkbox" id="checkLed1" style="width: 20px;height: 20px;margin-top:-1px;">&nbsp; LED GREEN
+                    </label>
+
+                    <div class="checkbox">
+                     <label>
+                      <input type="checkbox" id="checkLed2" style="width: 20px;height: 20px;margin-top:-1px;">&nbsp; LED RED
+                    </label>
+
+                    <div class="checkbox">
+                     <label>
+                      <input type="checkbox" id="checkLed3" style="width: 20px;height: 20px;margin-top:-1px;"><h>&nbsp; LED Blink<h3>
+                    </label>
+
+                   </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <script>
+
+      /*
+        Esqueleto de la BD
+
+        var db = firebase.database().ref('home').set({
+          led1:true,
+          led2:true,
+          led3:true
+        });
+      */
+
+
+      var db = firebase.database().ref('home');
+
+      // último estado
+
+      db.on('value', function(data){
+
+         console.log("data: ", data.val());
+         $("#checkLed1").prop('checked', data.val().led1);
+         $("#checkLed2").prop('checked', data.val().led2);
+         $("#checkLed3").prop('checked', data.val().led3);
+
+      });
+
+
+      $("#checkLed1").click(function(){
+        var estado = $(this).is(':checked');
+
+        db.update({
+          led1:estado
+        });
+
+      });
+
+      $("#checkLed2").click(function(){
+        var estado = $(this).is(':checked');
+
+        db.update({
+          led2:estado
+        });
+
+      });
+
+      $("#checkLed3").click(function(){
+        var estado = $(this).is(':checked');
+
+        db.update({
+          led3:estado
+        });
+
+      });
+
+        </script>
+
+
+
+
+  </body>
+</html>
